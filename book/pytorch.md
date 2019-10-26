@@ -16,7 +16,13 @@ PyTorchの人気の秘密は、その書きやすさとプロダクトへの運�
 
 ## PyTorchのプログラムを書いてみよう
 
-実際のPyTorchのプログラムがどのようなものかをみていきましょう。次のコードは 手書き数字認識のPyTorchプログラムです。同じプログラムは、[https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py](https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py)から入手できます。
+実際のPyTorchのプログラムがどのようなものかをみていきましょう。手始めに 手書き数字のデータセットであるMNISTをPyTorchで認識させてみましょう。MNISTに含まれている数字を描画すると以下のようになります。
+
+![MNISTの数字](img/../imgs/mnist.jpg)
+
+
+PyTorchのコードは以下のようになります。[https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py](https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py)から入手できます。
+
 
 
 ```python
@@ -47,7 +53,7 @@ class Net(nn.Module):
             nn.Linear(40*8*8, 100),　　　# Linearレイや、 40*8*8ユニットの入力を受けて、 100ユニットを出力する
             nn.ReLU(),　　　　　　　　　　 # ReLU活性化関数
             nn.Linear(100, 10),         # Linearレイヤ　　MNISTは 10この数字を当てる問題なので出力は10ユニット
-            nn.LogSoftmax()　　　　　　　 # LogSoftmaxレイヤ
+            nn.LogSoftmax(dim=1)　　　　 # LogSoftmaxレイヤ
         )
     
     def forward(self, x):
@@ -138,8 +144,16 @@ if __name__ == "__main__":
     main()
 ```
 
- プログラムをじっこうするには、以下のようにコマンドを入力します。
+ プログラムを実行するには、以下のようにコマンドを入力します。
 
 ```
 python mnist.py
+100%|████████████████████████████████████████████| 600/600 [00:37<00:00, 16.31it/s]
+Epoch 0: Train loss 0.15002354049279043
+100%|████████████████████████████████████████████| 100/100 [00:02<00:00, 38.75it/s]
+Epoch 0: Test loss 0.052312903378624466, Accuracy 98.26 %
+(省略)
+Epoch 4: Test loss 0.030565274948021397, Accuracy 99.19 %
 ```
+
+学習の結果、Accuracy(正解率)は 99.19 %になりましtあ。
