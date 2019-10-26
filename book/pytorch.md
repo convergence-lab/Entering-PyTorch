@@ -16,7 +16,8 @@ PyTorchの人気の秘密は、その書きやすさとプロダクトへの運�
 
 ## PyTorchのプログラムを書いてみよう
 
-実際のPyTorchのプログラムがどのようなものかをみていきましょう。
+実際のPyTorchのプログラムがどのようなものかをみていきましょう。次のコードは 手書き数字認識のPyTorchプログラムです。同じプログラムは、[https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py](https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py)から入手できます。
+
 
 ```python
 from tqdm import tqdm
@@ -25,7 +26,6 @@ import torch
 from torch import nn, optim
 import torch.nn.functional as F
 from torchvision import datasets, transforms
-
 
 class Net(nn.Module):
     """Net Module
@@ -136,5 +136,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 
+ プログラムをじっこうするには、以下のようにコマンドを入力します。
+
+```
+python mnist.py
 ```
