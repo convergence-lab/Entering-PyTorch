@@ -2,6 +2,13 @@
     "author": "Masashi Kimura",
     "plugins": [
         "katex",
-        "prism"
-    ]
+        "prism",
+        "web-header"
+    ],
+ 
+    "pluginsConfig": {
+        "webheader": {
+          "headerTitle": "<a href='http://www.convergence-lab.com'>Convergence Lab.</a> Entering PyTorch"
+        }
+    }
 }
