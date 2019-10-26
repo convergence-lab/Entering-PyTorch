@@ -1,5 +1,7 @@
 {
+    "author": "Masashi Kimura",
     "plugins": [
-        "katex"
+        "katex",
+        "prism"
     ]
 }
