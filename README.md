@@ -32,3 +32,8 @@ https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/
 この本で対象にするPyTorchのバージョンは1.3です。それ以外のバージョンでは検証を行なっていないため、解説のコードが動かないかもしれません。
 
 データサイエンスでは、Jupyter Notebookがよく利用されます。本書では、Jupyter Notebookの使用は最低限に止めることにします。Jupyterは便利ですが、AIプログラムのデプロイを考えた場合には、通常の .pyファイルの方が扱いやすためです。
+
+また、本書は、クリエイティブコモンズ CC-BY-NC-SA です。
+
+[![CC-BY-NC-SA](imgs/Cc-by-nc-sa_icon.svg)](https://creativecommons.org/licenses/by-nc-sa/2.1/jp/)
+
