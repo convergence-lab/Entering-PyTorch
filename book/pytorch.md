@@ -23,8 +23,6 @@ PyTorchの人気の秘密は、その書きやすさとプロダクトへの運�
 
 PyTorchのコードは以下のようになります。[https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py](https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py)から入手できます。
 
-
-
 ```python
 from tqdm import tqdm
 
@@ -42,26 +40,26 @@ class Net(nn.Module):
         どのようなレイヤを使うのかを定義する
         """
         super(Net, self).__init__()
-        self.base_net = nn.Sequential(　# base_netは特徴分析用のネットワーク
+        self.base_net = nn.Sequential( # base_netは特徴分析用のネットワーク
             nn.Conv2d(1, 20, 5, 1),     # Conv2Dレイヤ
             nn.ReLU(),                  # ReLU活性化関数
-            nn.MaxPool2d(2),　　　　　    # axpoolingレイヤ
-            nn.Conv2d(20, 40, 5, 1),　　 # Conv2Dレイヤ
+            nn.MaxPool2d(2),            # maxpoolingレイヤ
+            nn.Conv2d(20, 40, 5, 1),    # Conv2Dレイヤ
             nn.ReLU()                   # ReLU活性化関数
         )
         self.classfier = nn.Sequential( # classifierは分類用のネットワーク
-            nn.Linear(40*8*8, 100),　　　# Linearレイや、 40*8*8ユニットの入力を受けて、 100ユニットを出力する
-            nn.ReLU(),　　　　　　　　　　 # ReLU活性化関数
+            nn.Linear(40*8*8, 100),     # Linearレイヤ、 40*8*8ユニットの入力を受けて、 100ユニットを出力する
+            nn.ReLU(),                  # ReLU活性化関数
             nn.Linear(100, 10),         # Linearレイヤ　　MNISTは 10この数字を当てる問題なので出力は10ユニット
-            nn.LogSoftmax(dim=1)　　　　 # LogSoftmaxレイヤ
+            nn.LogSoftmax()             # LogSoftmaxレイヤ
         )
     
     def forward(self, x):
         """forwardでは、どのようにデータをネットワークに通すかを書く
         """
         x = self.base_net(x)     # base_netへ特徴を通す
-        x = x.view(-1, 40*8*8)　 # base_netと classifierでは入力テンソルの形が違うので変形する
-        x = self.classfier(x)　　# classifierへ通す
+        x = x.view(-1, 40*8*8)   # base_netと classifierでは入力テンソルの形が違うので変形する
+        x = self.classfier(x)    # classifierへ通す
         return x
 
 
@@ -72,14 +70,14 @@ def train(model, device, train_loader, optimizer, criterion, epoch):
     model.train()    # Networkを学習モードにする
     train_loss = 0
     for batch in tqdm(train_loader):
-        data, target = batch　　　　　　　　　　　　　　　     # batchからデータとターゲットを取り出す
+        data, target = batch                              # batchからデータとターゲットを取り出す
         data, target = data.to(device), target.to(device) # デバイスへデータを転送
-        optimizer.zero_grad()　　　　　　　　　　　　　　　　　 # 勾配の情報をゼロにリセット
-        pred = model(data)　　　　　　　　　　　　　　　　　　 　# ネットワークにデータを入れる
-        loss = criterion(pred, target)　　　　　　　　　　　　 # 損失を計算
-        loss.backward()                                    # 勾配を計算
-        optimizer.step()                                   # ネットワークを更新
-        train_loss += loss.item()　　　　　　　　　　　　　　　 # 損失を記録
+        optimizer.zero_grad()                             # 勾配の情報をゼロにリセット
+        pred = model(data)                                # ネットワークにデータを入れる
+        loss = criterion(pred, target)                    # 損失を計算
+        loss.backward()                                   # 勾配を計算
+        optimizer.step()                                  # ネットワークを更新
+        train_loss += loss.item()                         # 損失を記録
     print(f"Epoch {epoch}: Train loss {train_loss / len(train_loader)}")
 
 def test(model, device, test_loader, criterion, epoch):
@@ -126,9 +124,9 @@ def main():
         ])),
         batch_size=batch_size, shuffle=True)
 
-    model = Net().to(device)   　　　　　　　　　　　　　　　　# ネットワークをデバイスへ転送
+    model = Net().to(device)                              # ネットワークをデバイスへ転送
     optimizer = optim.Adam(model.parameters(), lr=0.001)  #　Adamオプティマイザを利用する
-    criterion = nn.NLLLoss()　　　　　　　　　　　　　　　　　　# 損失関数は、負の対数尤度関数
+    criterion = nn.NLLLoss()                              # 損失関数は、負の対数尤度関数
 
     #  学習用ループ
     for ep in range(epoch):
@@ -156,4 +154,5 @@ Epoch 0: Test loss 0.052312903378624466, Accuracy 98.26 %
 Epoch 4: Test loss 0.030565274948021397, Accuracy 99.19 %
 ```
 
-学習の結果、Accuracy(正解率)は 99.19 %になりましtあ。
+学習の結果、Accuracy(正解率)は 99.19 %になりました。
+以下の章で、このコードがどのようなコードなのかを理解するための解説を始めます。

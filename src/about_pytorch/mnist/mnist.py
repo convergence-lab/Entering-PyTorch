@@ -22,7 +22,7 @@ class Net(nn.Module):
             nn.ReLU()                   # ReLU活性化関数
         )
         self.classfier = nn.Sequential( # classifierは分類用のネットワーク
-            nn.Linear(40*8*8, 100),     # Linearレイや、 40*8*8ユニットの入力を受けて、 100ユニットを出力する
+            nn.Linear(40*8*8, 100),     # Linearレイヤ、 40*8*8ユニットの入力を受けて、 100ユニットを出力する
             nn.ReLU(),                  # ReLU活性化関数
             nn.Linear(100, 10),         # Linearレイヤ　　MNISTは 10この数字を当てる問題なので出力は10ユニット
             nn.LogSoftmax()             # LogSoftmaxレイヤ
