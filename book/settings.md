@@ -8,9 +8,9 @@ Anacondaは、Pythonのディストリビューターの一つです。科学計
 
 [Anaconda Distribution](https://www.anaconda.com/distribution/)のページから、ご自身のOSにあった Anacondaをインストールしてください。 Python 3.x と Python 2.7が選べますが、ここでは3系のAnacodaを用います。
 
-## Pytorchのインストール
+## PyTorchのインストール
 
-Pytorchそのものは、[PytorchのGET STARGED](https://pytorch.org/get-started/locally/)ページのとおりコマンドを書くことでインストールできます。環境に合ったコマンドを選択してください。
+Pytorchそのものは、[PyTorchのGET STARGED](https://pytorch.org/get-started/locally/)ページのとおりコマンドを書くことでインストールできます。環境に合ったコマンドを選択してください。
 
 
 ### CPU版（Mac, Linux)

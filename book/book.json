@@ -1,5 +1,6 @@
 {
-    "author": "Masashi Kimura",
+    "title": "Entering PyTorch",
+    "author": "木村 優志 Convegence Lab.", 
     "plugins": [
         "katex",
         "prism",

@@ -1,8 +1,10 @@
 # Entering PyTorch
 
-Convergence Lab. 木村優志 [kimura@convergence-lab.com](mailto:kimura@convergence-lab.com)
+Convergence Lab. 木村優志
 
+[http://www.convergence-lab.com](http://www.convergence-lab.com)
 
+[kimura@convergence-lab.com](mailto:kimura@convergence-lab.com)
 
 ## はじめに
 
@@ -33,4 +35,4 @@ https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/
 
 この本で対象にするPyTorchのバージョンは1.3です。それ以外のバージョンでは検証を行なっていないため、解説のコードが動かないかもしれません。
 
-データサイエンスでは、Jupyter Notebookがよく利用されます。本書では、Jupyter Notebookの使用は最低限に止めることにします。Jupyterは便利ですが、AIプログラムのデプロイを考えた場合には、通常の .pyファイルの方が扱いやすためです。
+データサイエンスでは、Jupyter Notebookがよく利用されます。本書では、Jupyter Notebookの使用は最低限に止めることにします。Jupyterは便利ですが、AIプログラムのデプロイを考えた場合には、通常の .pyファイルの方が扱いやすためです
