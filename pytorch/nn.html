@@ -1,0 +1,630 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ニューラルネットワークの書き方 · Entering PyTorch</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="木村 優志 Convegence Lab.">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-web-header/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="autograd.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entering PyTorch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../machine_learning.html">
+            
+                <a href="../machine_learning.html">
+            
+                    
+                    機械学習
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../about_deeplearning.html">
+            
+                <a href="../about_deeplearning.html">
+            
+                    
+                    ディープラーニング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../settings.html">
+            
+                <a href="../settings.html">
+            
+                    
+                    環境設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="pytorch.html">
+            
+                <a href="pytorch.html">
+            
+                    
+                    PyTorch
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="tensor.html">
+            
+                <a href="tensor.html">
+            
+                    
+                    Tensor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="autograd.html">
+            
+                <a href="autograd.html">
+            
+                    
+                    Tensorの自動微分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.3" data-path="nn.html">
+            
+                <a href="nn.html">
+            
+                    
+                    ニューラルネットワークの書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ニューラルネットワークの書き方</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x66F8;&#x304D;&#x65B9;">&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x66F8;&#x304D;&#x65B9;</h2>
+<p>PyTorch&#x3067;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x66F8;&#x3044;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;&#x3053;&#x306E;&#x7AE0;&#x306E;&#x76EE;&#x7684;&#x306F;&#x3001;&#x5168;&#x4F53;&#x306E;&#x6D41;&#x308C;&#x304C;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x306A;&#x308B;&#x306E;&#x304B;&#x3092;&#x63B4;&#x3080;&#x4E8B;&#x3067;&#x3059;&#x3002;&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x306E;&#x8A73;&#x7D30;&#x306F;&#x3042;&#x3068;&#x3067;&#x8A73;&#x3057;&#x304F;&#x8AAC;&#x660E;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x624B;&#x59CB;&#x3081;&#x306B; &#x624B;&#x66F8;&#x304D;&#x6570;&#x5B57;&#x306E;&#x30C7;&#x30FC;&#x30BF;&#x30BB;&#x30C3;&#x30C8;&#x3067;&#x3042;&#x308B;MNIST&#x3092;&#x8A8D;&#x8B58;&#x3055;&#x305B;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;MNIST&#x306B;&#x542B;&#x307E;&#x308C;&#x3066;&#x3044;&#x308B;&#x6570;&#x5B57;&#x3092;&#x63CF;&#x753B;&#x3059;&#x308B;&#x3068;&#x4EE5;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x3053;&#x306E;&#x753B;&#x50CF;&#x304C;&#x3069;&#x306E;&#x6570;&#x5B57;&#x306A;&#x306E;&#x304B;&#x3092;&#x5F53;&#x3066;&#x308B;&#x306E;&#x304C;&#x4ECA;&#x56DE;&#x306E;&#x554F;&#x984C;&#x3067;&#x3059;&#x3002;</p>
+<p><img src="../imgs/mnist.jpg" alt="MNIST&#x306E;&#x6570;&#x5B57;"></p>
+<p>PyTorch&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x540C;&#x3058;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x3001;<a href="https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py&#x304B;&#x3089;&#x5165;&#x624B;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;" target="_blank">https://github.com/convergence-lab/Entering-PyTorch/blob/master/src/about_pytorch/mnist/mnist.py&#x304B;&#x3089;&#x5165;&#x624B;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</a></p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">from</span> tqdm <span class="token keyword">import</span> tqdm
+
+<span class="token keyword">import</span> torch
+<span class="token keyword">from</span> torch <span class="token keyword">import</span> nn<span class="token punctuation">,</span> optim
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional <span class="token keyword">as</span> F
+<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> datasets<span class="token punctuation">,</span> transforms
+
+<span class="token keyword">class</span> <span class="token class-name">Net</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;Net Module
+    MNIST&#x3092;&#x5B66;&#x7FD2;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;
+    &quot;&quot;&quot;</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;__init__&#x3067;&#x306F;Network&#x306E;&#x521D;&#x671F;&#x5316;&#x3092;&#x3059;&#x308B;&#x3002;
+        &#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x30EC;&#x30A4;&#x30E4;&#x3092;&#x4F7F;&#x3046;&#x306E;&#x304B;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;
+        &quot;&quot;&quot;</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Net<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>base_net <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span> <span class="token comment"># base_net&#x306F;&#x7279;&#x5FB4;&#x5206;&#x6790;&#x7528;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;</span>
+            nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>     <span class="token comment"># Conv2D&#x30EC;&#x30A4;&#x30E4;</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                  <span class="token comment"># ReLU&#x6D3B;&#x6027;&#x5316;&#x95A2;&#x6570;</span>
+            nn<span class="token punctuation">.</span>MaxPool2d<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>            <span class="token comment"># maxpooling&#x30EC;&#x30A4;&#x30E4;</span>
+            nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment"># Conv2D&#x30EC;&#x30A4;&#x30E4;</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span>                   <span class="token comment"># ReLU&#x6D3B;&#x6027;&#x5316;&#x95A2;&#x6570;</span>
+        <span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>classfier <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span> <span class="token comment"># classifier&#x306F;&#x5206;&#x985E;&#x7528;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">40</span><span class="token operator">*</span><span class="token number">8</span><span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>     <span class="token comment"># Linear&#x30EC;&#x30A4;&#x30E4;&#x3001; 40*8*8&#x30E6;&#x30CB;&#x30C3;&#x30C8;&#x306E;&#x5165;&#x529B;&#x3092;&#x53D7;&#x3051;&#x3066;&#x3001; 100&#x30E6;&#x30CB;&#x30C3;&#x30C8;&#x3092;&#x51FA;&#x529B;&#x3059;&#x308B;</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                  <span class="token comment"># ReLU&#x6D3B;&#x6027;&#x5316;&#x95A2;&#x6570;</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>         <span class="token comment"># Linear&#x30EC;&#x30A4;&#x30E4;&#x3000;&#x3000;MNIST&#x306F; 10&#x3053;&#x306E;&#x6570;&#x5B57;&#x3092;&#x5F53;&#x3066;&#x308B;&#x554F;&#x984C;&#x306A;&#x306E;&#x3067;&#x51FA;&#x529B;&#x306F;10&#x30E6;&#x30CB;&#x30C3;&#x30C8;</span>
+            nn<span class="token punctuation">.</span>LogSoftmax<span class="token punctuation">(</span><span class="token punctuation">)</span>             <span class="token comment"># LogSoftmax&#x30EC;&#x30A4;&#x30E4;</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;forward&#x3067;&#x306F;&#x3001;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x901A;&#x3059;&#x304B;&#x3092;&#x66F8;&#x304F;
+        &quot;&quot;&quot;</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>base_net<span class="token punctuation">(</span>x<span class="token punctuation">)</span>     <span class="token comment"># base_net&#x3078;&#x7279;&#x5FB4;&#x3092;&#x901A;&#x3059;</span>
+        x <span class="token operator">=</span> x<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token operator">*</span><span class="token number">8</span><span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">)</span>   <span class="token comment"># base_net&#x3068; classifier&#x3067;&#x306F;&#x5165;&#x529B;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x306E;&#x5F62;&#x304C;&#x9055;&#x3046;&#x306E;&#x3067;&#x5909;&#x5F62;&#x3059;&#x308B;</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>classfier<span class="token punctuation">(</span>x<span class="token punctuation">)</span>    <span class="token comment"># classifier&#x3078;&#x901A;&#x3059;</span>
+        <span class="token keyword">return</span> x
+
+
+<span class="token keyword">def</span> <span class="token function">train</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    &#x5B66;&#x7FD2;&#x7528;&#x306E;&#x95A2;&#x6570;
+    &quot;&quot;&quot;</span>
+    model<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment"># Network&#x3092;&#x5B66;&#x7FD2;&#x30E2;&#x30FC;&#x30C9;&#x306B;&#x3059;&#x308B;</span>
+    train_loss <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> batch <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span>train_loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> batch                              <span class="token comment"># batch&#x304B;&#x3089;&#x30C7;&#x30FC;&#x30BF;&#x3068;&#x30BF;&#x30FC;&#x30B2;&#x30C3;&#x30C8;&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3059;</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span> <span class="token comment"># &#x30C7;&#x30D0;&#x30A4;&#x30B9;&#x3078;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8EE2;&#x9001;</span>
+        optimizer<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>                             <span class="token comment"># &#x52FE;&#x914D;&#x306E;&#x60C5;&#x5831;&#x3092;&#x30BC;&#x30ED;&#x306B;&#x30EA;&#x30BB;&#x30C3;&#x30C8;</span>
+        pred <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>                                <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x5165;&#x308C;&#x308B;</span>
+        loss <span class="token operator">=</span> criterion<span class="token punctuation">(</span>pred<span class="token punctuation">,</span> target<span class="token punctuation">)</span>                    <span class="token comment"># &#x640D;&#x5931;&#x3092;&#x8A08;&#x7B97;</span>
+        loss<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>                                   <span class="token comment"># &#x52FE;&#x914D;&#x3092;&#x8A08;&#x7B97;</span>
+        optimizer<span class="token punctuation">.</span>step<span class="token punctuation">(</span><span class="token punctuation">)</span>                                  <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x66F4;&#x65B0;</span>
+        train_loss <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>                         <span class="token comment"># &#x640D;&#x5931;&#x3092;&#x8A18;&#x9332;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Epoch </span><span class="token interpolation"><span class="token punctuation">{</span>epoch<span class="token punctuation">}</span></span><span class="token string">: Train loss </span><span class="token interpolation"><span class="token punctuation">{</span>train_loss <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>train_loader<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">&quot;</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">test</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_loader<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    &#x8A55;&#x4FA1;&#x7528;&#x306E;&#x95A2;&#x6570;
+    &#x8A55;&#x4FA1;&#x7528;&#x306E;&#x95A2;&#x6570;&#x3067;&#x306F;&#x3001;&#x5B66;&#x7FD2;&#x3068;&#x9055;&#x3044;&#x3001;optimizer&#x304C;&#x4E0D;&#x8981;
+    &quot;&quot;&quot;</span>
+    model<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x8A55;&#x4FA1;&#x30E2;&#x30FC;&#x30C9;&#x306B;</span>
+    test_loss <span class="token operator">=</span> <span class="token number">0</span>
+    correct <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> batch <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span>test_loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">with</span> torch<span class="token punctuation">.</span>no_grad<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            data<span class="token punctuation">,</span> target <span class="token operator">=</span> batch
+            data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+            pred <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+            loss <span class="token operator">=</span> criterion<span class="token punctuation">(</span>pred<span class="token punctuation">,</span> target<span class="token punctuation">)</span>
+            test_loss <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            correct <span class="token operator">+=</span> pred<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>eq<span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment"># &#x6B63;&#x89E3;&#x7387;&#x3092;&#x8A08;&#x7B97;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Epoch </span><span class="token interpolation"><span class="token punctuation">{</span>epoch<span class="token punctuation">}</span></span><span class="token string">: Test loss </span><span class="token interpolation"><span class="token punctuation">{</span>test_loss <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_loader<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">, Accuracy </span><span class="token interpolation"><span class="token punctuation">{</span><span class="token number">100</span><span class="token punctuation">.</span> <span class="token operator">*</span> correct <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_loader<span class="token punctuation">.</span>dataset<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string"> %&quot;</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    main&#x95A2;&#x6570;
+    &quot;&quot;&quot;</span>
+    torch<span class="token punctuation">.</span>manual_seed<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>  <span class="token comment"># &#x30B7;&#x30FC;&#x30C9;&#x3092;&#x56FA;&#x5B9A;</span>
+    device <span class="token operator">=</span> torch<span class="token punctuation">.</span>device<span class="token punctuation">(</span><span class="token string">&quot;cuda&quot;</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">&quot;cpu&quot;</span><span class="token punctuation">)</span>  <span class="token comment"># CUDA&#x304C;&#x5229;&#x7528;&#x3067;&#x304D;&#x308B;&#x306A;r&#x3042;&#x5229;&#x7528;&#x3059;&#x308B;</span>
+
+    epoch <span class="token operator">=</span> <span class="token number">5</span>
+    batch_size <span class="token operator">=</span> <span class="token number">100</span>
+    save_model <span class="token operator">=</span> <span class="token boolean">False</span>
+
+    <span class="token comment"># &#x5B66;&#x7FD2;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;</span>
+    train_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>
+        datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">&apos;../../../data&apos;</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+                       transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+                           transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                           transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                       <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token comment"># &#x8A55;&#x4FA1;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;</span>
+    test_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>
+        datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">&apos;../../../data&apos;</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+            transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+    model <span class="token operator">=</span> Net<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>                              <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x30C7;&#x30D0;&#x30A4;&#x30B9;&#x3078;&#x8EE2;&#x9001;</span>
+    optimizer <span class="token operator">=</span> optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.001</span><span class="token punctuation">)</span>  <span class="token comment">#&#x3000;Adam&#x30AA;&#x30D7;&#x30C6;&#x30A3;&#x30DE;&#x30A4;&#x30B6;&#x3092;&#x5229;&#x7528;&#x3059;&#x308B;</span>
+    criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>NLLLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>                              <span class="token comment"># &#x640D;&#x5931;&#x95A2;&#x6570;&#x306F;&#x3001;&#x8CA0;&#x306E;&#x5BFE;&#x6570;&#x5C24;&#x5EA6;&#x95A2;&#x6570;</span>
+
+    <span class="token comment">#  &#x5B66;&#x7FD2;&#x7528;&#x30EB;&#x30FC;&#x30D7;</span>
+    <span class="token keyword">for</span> ep <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># &#x5B66;&#x7FD2;&#x3059;&#x308B;</span>
+        train<span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> ep<span class="token punctuation">)</span>
+        <span class="token comment"># &#x8A55;&#x4FA1;&#x3059;&#x308B;</span>
+        test<span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_loader<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> ep<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> save_model<span class="token punctuation">:</span>
+        torch<span class="token punctuation">.</span>save<span class="token punctuation">(</span>model<span class="token punctuation">.</span>state_dict<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;mnist_cnn.pt&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">&quot;__main__&quot;</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x306B;&#x306F;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306B;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x3092;&#x5165;&#x529B;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code>python mnist.py
+100%|&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;| 600/600 [00:37&lt;00:00, 16.31it/s]
+Epoch 0: Train loss 0.15002354049279043
+100%|&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;| 100/100 [00:02&lt;00:00, 38.75it/s]
+Epoch 0: Test loss 0.052312903378624466, Accuracy 98.26 %
+(&#x7701;&#x7565;)
+Epoch 4: Test loss 0.030565274948021397, Accuracy 99.19 %
+</code></pre><p>&#x5B66;&#x7FD2;&#x306E;&#x7D50;&#x679C;&#x3001;Accuracy(&#x6B63;&#x89E3;&#x7387;)&#x306F; 99.19 %&#x306B;&#x306A;&#x308A;&#x307E;&#x3057;&#x305F;&#x3002; &#x4EE5;&#x4E0B;&#x306E;&#x7AE0;&#x3067;&#x3001;&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x304C;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x30B3;&#x30FC;&#x30C9;&#x306A;&#x306E;&#x304B;&#x3092;&#x7406;&#x89E3;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E;&#x89E3;&#x8AAC;&#x3092;&#x59CB;&#x3081;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="main&#x95A2;&#x6570;">main&#x95A2;&#x6570;</h3>
+<p>&#x307E;&#x305A;&#x3001;<code>main</code>&#x95A2;&#x6570;&#x3092;&#x307F;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    main&#x95A2;&#x6570;
+    &quot;&quot;&quot;</span>
+    torch<span class="token punctuation">.</span>manual_seed<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>  <span class="token comment"># &#x30B7;&#x30FC;&#x30C9;&#x3092;&#x56FA;&#x5B9A;</span>
+    device <span class="token operator">=</span> torch<span class="token punctuation">.</span>device<span class="token punctuation">(</span><span class="token string">&quot;cuda&quot;</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">&quot;cpu&quot;</span><span class="token punctuation">)</span>  <span class="token comment"># CUDA&#x304C;&#x5229;&#x7528;&#x3067;&#x304D;&#x308B;&#x306A;&#x3089;&#x5229;&#x7528;&#x3059;&#x308B;</span>
+
+    epoch <span class="token operator">=</span> <span class="token number">5</span>
+    batch_size <span class="token operator">=</span> <span class="token number">100</span>
+    save_model <span class="token operator">=</span> <span class="token boolean">False</span>
+
+    <span class="token comment"># &#x5B66;&#x7FD2;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;</span>
+    train_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>
+        datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">&apos;../../../data&apos;</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+                       transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+                           transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                           transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                       <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token comment"># &#x8A55;&#x4FA1;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;</span>
+    test_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>
+        datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">&apos;../../../data&apos;</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+            transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+    model <span class="token operator">=</span> Net<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>                              <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x3064;&#x304F;&#x308A;&#x30C7;&#x30D0;&#x30A4;&#x30B9;&#x3078;&#x8EE2;&#x9001;</span>
+    optimizer <span class="token operator">=</span> optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.001</span><span class="token punctuation">)</span>  <span class="token comment">#&#x3000;Adam&#x30AA;&#x30D7;&#x30C6;&#x30A3;&#x30DE;&#x30A4;&#x30B6;&#x3092;&#x5229;&#x7528;&#x3059;&#x308B;</span>
+    criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>NLLLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>                              <span class="token comment"># &#x640D;&#x5931;&#x95A2;&#x6570;&#x306F;&#x3001;&#x8CA0;&#x306E;&#x5BFE;&#x6570;&#x5C24;&#x5EA6;&#x95A2;&#x6570;</span>
+
+    <span class="token comment">#  &#x5B66;&#x7FD2;&#x7528;&#x30EB;&#x30FC;&#x30D7;</span>
+    <span class="token keyword">for</span> ep <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># &#x5B66;&#x7FD2;&#x3059;&#x308B;</span>
+        train<span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> ep<span class="token punctuation">)</span>
+        <span class="token comment"># &#x8A55;&#x4FA1;&#x3059;&#x308B;</span>
+        test<span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_loader<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> ep<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> save_model<span class="token punctuation">:</span>
+        torch<span class="token punctuation">.</span>save<span class="token punctuation">(</span>model<span class="token punctuation">.</span>state_dict<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;mnist_cnn.pt&quot;</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x6B21;&#x306E;&#x90E8;&#x5206;&#x3067;&#x306F;&#x3001;MNIST&#x30C7;&#x30FC;&#x30BF;&#x306E;&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x3001;&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">    train_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>
+        datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">&apos;../../../data&apos;</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+                       transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+                           transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                           transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                       <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token comment"># &#x8A55;&#x4FA1;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;</span>
+    test_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>
+        datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">&apos;../../../data&apos;</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+            transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x4EE5;&#x4E0B;&#x306E;&#x90E8;&#x5206;&#x3067;&#x3001;&#x5B66;&#x7FD2;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x3082;&#x306E;&#x3092;&#x7528;&#x610F;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x7528;&#x610F;&#x3059;&#x308B;&#x306E;&#x306F;&#x6B21;&#x306E;&#xFF13;&#x3064;&#x3067;&#x3059;&#x3002;</p>
+<ul>
+<li>model<ul>
+<li>&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x672C;&#x4F53;&#x3067;&#x3059;&#x3002;</li>
+</ul>
+</li>
+<li>optimizer<ul>
+<li>&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x5B66;&#x7FD2;&#x65B9;&#x6CD5;&#x3067;&#x3059;</li>
+</ul>
+</li>
+<li>criterion<ul>
+<li>&#x6B63;&#x89E3;&#x30C7;&#x30FC;&#x30BF;&#x3068;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x51FA;&#x529B;&#x306E;&#x8AA4;&#x5DEE;&#x306E;&#x8A08;&#x7B97;&#x65B9;&#x6CD5;&#x3067;&#x3059;&#x3002;&#x3053;&#x308C;&#x3092;&#x3061;&#x3044;&#x3055;&#x304F;&#x3059;&#x308B;&#x4E8B;&#x304C;&#x5B66;&#x7FD2;&#x306E;&#x76EE;&#x7684;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<pre class="language-"><code class="lang-python">    model <span class="token operator">=</span> Net<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>                              <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x3064;&#x304F;&#x308A;&#x30C7;&#x30D0;&#x30A4;&#x30B9;&#x3078;&#x8EE2;&#x9001;</span>
+    optimizer <span class="token operator">=</span> optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.001</span><span class="token punctuation">)</span>  <span class="token comment">#&#x3000;Adam&#x30AA;&#x30D7;&#x30C6;&#x30A3;&#x30DE;&#x30A4;&#x30B6;&#x3092;&#x5229;&#x7528;&#x3059;&#x308B;</span>
+    criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>NLLLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>                              <span class="token comment"># &#x640D;&#x5931;&#x95A2;&#x6570;&#x306F;&#x3001;&#x8CA0;&#x306E;&#x5BFE;&#x6570;&#x5C24;&#x5EA6;&#x95A2;&#x6570;</span>
+</code></pre>
+<p>&#x5B9F;&#x969B;&#x306B;&#x5B66;&#x7FD2;&#x3092;&#x56DE;&#x3057;&#x3066;&#x3044;&#x308B;&#x306E;&#x306F;&#x6B21;&#x306E;&#x30EB;&#x30FC;&#x30D7;&#x3067;&#x3059;&#x3002;<code>epoch</code>&#x56DE;&#x3060;&#x3051;&#x5B66;&#x7FD2;&#x3092;&#x7E70;&#x308A;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;&#x3059;&#x3079;&#x3066;&#x306E;&#x5B66;&#x7FD2;&#x30C7;&#x30FC;&#x30BF;&#x3092;1&#x56DE;&#x305A;&#x3064;&#x5B66;&#x7FD2;&#x3092;&#x7D42;&#x3048;&#x308B;&#x3068;&#x3001;<code>1 epoch</code>&#x5B66;&#x7FD2;&#x3057;&#x305F;&#x3068;&#x6570;&#x3048;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">    <span class="token comment">#  &#x5B66;&#x7FD2;&#x7528;&#x30EB;&#x30FC;&#x30D7;</span>
+    <span class="token keyword">for</span> ep <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># &#x5B66;&#x7FD2;&#x3059;&#x308B;</span>
+        train<span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> ep<span class="token punctuation">)</span>
+        <span class="token comment"># &#x8A55;&#x4FA1;&#x3059;&#x308B;</span>
+        test<span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_loader<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> ep<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x5B9A;&#x7FA9;">&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x5B9A;&#x7FA9;</h3>
+<p>&#x4EE5;&#x4E0B;&#x306E;&#x90E8;&#x5206;&#x304C;&#x3001;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x308B;&#x90E8;&#x5206;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x8868;&#x3059;&#x30AF;&#x30E9;&#x30B9;&#x306F; <code>nn.Module</code>&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x66F8;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">class</span> <span class="token class-name">Net</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;Net Module
+    MNIST&#x3092;&#x5B66;&#x7FD2;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;
+    &quot;&quot;&quot;</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;
+        __init__&#x3067;&#x306F;Network&#x306E;&#x521D;&#x671F;&#x5316;&#x3092;&#x3059;&#x308B;&#x3002;
+        &#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x30EC;&#x30A4;&#x30E4;&#x3092;&#x4F7F;&#x3046;&#x306E;&#x304B;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;
+        &quot;&quot;&quot;</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Net<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment"># &#x521D;&#x671F;&#x5316;</span>
+        self<span class="token punctuation">.</span>base_net <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>  <span class="token comment"># base_net&#x306F;&#x7279;&#x5FB4;&#x5206;&#x6790;&#x7528;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;</span>
+            nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>     <span class="token comment"># Conv2D&#x30EC;&#x30A4;&#x30E4;</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                  <span class="token comment"># ReLU&#x6D3B;&#x6027;&#x5316;&#x95A2;&#x6570;</span>
+            nn<span class="token punctuation">.</span>MaxPool2d<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>            <span class="token comment"># maxpooling&#x30EC;&#x30A4;&#x30E4;</span>
+            nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment"># Conv2D&#x30EC;&#x30A4;&#x30E4;</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span>                   <span class="token comment"># ReLU&#x6D3B;&#x6027;&#x5316;&#x95A2;&#x6570;</span>
+        <span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>classfier <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span> <span class="token comment"># classifier&#x306F;&#x5206;&#x985E;&#x7528;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">40</span><span class="token operator">*</span><span class="token number">8</span><span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>     <span class="token comment"># Linear&#x30EC;&#x30A4;&#x30E4;&#x3001; 40*8*8&#x30E6;&#x30CB;&#x30C3;&#x30C8;&#x306E;&#x5165;&#x529B;&#x3092;&#x53D7;&#x3051;&#x3066;&#x3001; 100&#x30E6;&#x30CB;&#x30C3;&#x30C8;&#x3092;&#x51FA;&#x529B;&#x3059;&#x308B;</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                  <span class="token comment"># ReLU&#x6D3B;&#x6027;&#x5316;&#x95A2;&#x6570;</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>         <span class="token comment"># Linear&#x30EC;&#x30A4;&#x30E4;&#x3000;&#x3000;MNIST&#x306F; 10&#x3053;&#x306E;&#x6570;&#x5B57;&#x3092;&#x5F53;&#x3066;&#x308B;&#x554F;&#x984C;&#x306A;&#x306E;&#x3067;&#x51FA;&#x529B;&#x306F;10&#x30E6;&#x30CB;&#x30C3;&#x30C8;</span>
+            nn<span class="token punctuation">.</span>LogSoftmax<span class="token punctuation">(</span><span class="token punctuation">)</span>             <span class="token comment"># LogSoftmax&#x30EC;&#x30A4;&#x30E4;</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;
+        forward&#x3067;&#x306F;&#x3001;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x901A;&#x3059;&#x304B;&#x3092;&#x66F8;&#x304F;
+        &quot;&quot;&quot;</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>base_net<span class="token punctuation">(</span>x<span class="token punctuation">)</span>     <span class="token comment"># base_net&#x3078;&#x7279;&#x5FB4;&#x3092;&#x901A;&#x3059;</span>
+        x <span class="token operator">=</span> x<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token operator">*</span><span class="token number">8</span><span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">)</span>   <span class="token comment"># base_net&#x3068; classifier&#x3067;&#x306F;&#x5165;&#x529B;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x306E;&#x5F62;&#x304C;&#x9055;&#x3046;&#x306E;&#x3067;&#x5909;&#x5F62;&#x3059;&#x308B;</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>classfier<span class="token punctuation">(</span>x<span class="token punctuation">)</span>    <span class="token comment"># classifier&#x3078;&#x901A;&#x3059;</span>
+        <span class="token keyword">return</span> x
+</code></pre>
+<p><code>__init__()</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x30EC;&#x30A4;&#x30E4;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x307E;&#x3059;&#x3002;&#x4ECA;&#x56DE;&#x306F;&#x3001;<code>self.base_net</code>&#x3068;<code>self.classifier</code>&#x3068;&#x3044;&#x3046;&#xFF12;&#x3064;&#x306E;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x9023;&#x7D50;&#x3057;&#x305F;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3068;&#x3057;&#x307E;&#x3057;&#x305F;&#x3002;&#x305D;&#x308C;&#x305E;&#x308C;&#x3001;<code>nn.Sequential</code>&#x3067;&#x30EC;&#x30A4;&#x30E4;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x3053;&#x3053;&#x3067;&#x306F;&#x3001;&#x30EC;&#x30A4;&#x30E4;&#x306E;&#x7A2E;&#x985E;&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x5F8C;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;&#x3053;&#x3053;&#x3067;&#x306F;&#x3001;&#x3053;&#x3093;&#x306A;&#x3075;&#x3046;&#x306B;&#x4F5C;&#x308B;&#x3068;&#x3044;&#x3046;&#x4E8B;&#x304C;&#x308F;&#x304B;&#x308C;&#x3070;&#x305D;&#x308C;&#x3067;&#x5341;&#x5206;&#x3067;&#x3059;&#x3002;</p>
+<p><code>forward()</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x306F;&#x3001;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x901A;&#x3059;&#x306E;&#x304B;&#x3092;&#x66F8;&#x304D;&#x307E;&#x3059;&#x3002;&#x3053;&#x3053;&#x3067;&#x306F;&#x3001;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;&#x4E0E;&#x3048;&#x3089;&#x308C;&#x305F; <code>x</code>&#x3068;&#x3044;&#x3046;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x3092;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x901A;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;&#x307E;&#x305A;&#x3001;<code>x</code>&#x3092;<code>self.base_net</code>&#x306B;&#x3068;&#x304A;&#x3057;&#x307E;&#x3059;&#x3002;&#x3064;&#x304E;&#x306B;&#x3001;<code>self.classifier</code>&#x306B;&#x901A;&#x3059;&#x306E;&#x3067;&#x3059;&#x304C;&#x3001;&#x305D;&#x306E;&#x524D;&#x306B;&#x3001;&#x4E00;&#x5EA6;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x306E;shape&#x3092;&#x5909;&#x3048;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x3053;&#x308C;&#x306B;&#x3064;&#x3044;&#x3066;&#x3082;&#x3042;&#x3068;&#x3067;&#x8AAC;&#x660E;&#x3057;&#x307E;&#x3059;&#x306E;&#x3067;&#x5FC3;&#x914D;&#x3057;&#x306A;&#x3044;&#x3067;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;shape&#x3092;&#x5909;&#x3048;&#x305F;&#x3042;&#x3068;&#x306F;&#x3001;<code>self.classifer</code>&#x306B;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="train&#x95A2;&#x6570;"><code>train</code>&#x95A2;&#x6570;</h3>
+<p>&#x5B66;&#x7FD2;&#x3092;&#x52D5;&#x304B;&#x3059; <code>train</code>&#x95A2;&#x6570;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x307E;&#x305A;&#x3001;<code>model.train()</code>&#x3067;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x5B66;&#x7FD2;&#x30E2;&#x30FC;&#x30C9;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;&#x6B21;&#x306B;<code>for</code>&#x30EB;&#x30FC;&#x30D7;&#x3067;&#x5B66;&#x7FD2;&#x30C7;&#x30FC;&#x30BF;&#x3092;<code>batch</code>&#x306B;&#x53D6;&#x308A;&#x51FA;&#x3057;&#x307E;&#x3059;&#x3002;<code>batch</code>&#x306B;&#x306F;&#x3001;<code>data</code>&#x3068;<code>target</code>&#x3068;&#x3044;&#x3046;&#x4E8C;&#x3064;&#x306E;&#x30C7;&#x30FC;&#x30BF;&#x304C;&#x5165;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x4ECA;&#x56DE;&#x3001;<code>data</code>&#x306F;&#x5B66;&#x7FD2;&#x7528;&#x306E;&#x753B;&#x50CF;&#x3067;&#x3001;<code>target</code>&#x306F;&#x305D;&#x306E;&#x753B;&#x50CF;&#x304C;&#x793A;&#x3059;&#x6570;&#x5B57;&#x3067;&#x3059;&#x3002;<code>optimzer.zero_grad()</code>&#x3067;&#x306F;&#x3001;&#x4E00;&#x3064;&#x524D;&#x306E;&#x5B66;&#x7FD2;&#x306B;&#x4F7F;&#x3063;&#x305F;&#x52FE;&#x914D;&#x306E;&#x60C5;&#x5831;&#x3092;&#x6D88;&#x53BB;&#x3057;&#x307E;&#x3059;&#x3002;<code>pred = model(data</code>&#x3067;<code>data</code>&#x3092;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x3068;&#x304A;&#x3057;&#x305F;&#x51FA;&#x529B;&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3057;&#x307E;&#x3059;&#x3002;<code>loss = criterion(pred, target)</code>&#x3067;&#x306F;&#x3001;&#x30CB;&#x30E5;&#x30FC;&#x30E9;&#x30EB;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x51FA;&#x529B;<code>pred</code>&#x3068;&#x6B63;&#x89E3;&#x30C7;&#x30FC;&#x30BF;<code>target</code>&#x306E;&#x8AA4;&#x5DEE;&#x3092;&#x8A08;&#x7B97;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;<code>loss.backward()</code>&#x3067;&#x3001;&#x3053;&#x306E;&#x8AA4;&#x5DEE;&#x306E;&#x52FE;&#x914D;&#x3092;&#x8A08;&#x7B97;&#x3057;&#x307E;&#x3059;&#x3002;<code>optimizer.step()</code>&#x3067;&#x306F;&#x3001;&#x8A08;&#x7B97;&#x3057;&#x305F;&#x52FE;&#x914D;&#x3092;&#x3082;&#x3068;&#x306B;&#x3001;&#x5B66;&#x7FD2;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;<code>train_loss += loss.item()</code>&#x306F;&#x5B66;&#x7FD2;&#x306E;&#x72B6;&#x6CC1;&#x3092;&#x78BA;&#x8A8D;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;&#x8A08;&#x7B97;&#x3057;&#x305F;&#x8AA4;&#x5DEE;&#x306E;&#x5927;&#x304D;&#x3055;&#x3092;&#x8A18;&#x9332;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">def</span> <span class="token function">train</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    &#x5B66;&#x7FD2;&#x7528;&#x306E;&#x95A2;&#x6570;
+    &quot;&quot;&quot;</span>
+    model<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment"># Network&#x3092;&#x5B66;&#x7FD2;&#x30E2;&#x30FC;&#x30C9;&#x306B;&#x3059;&#x308B;</span>
+    train_loss <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> batch <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span>train_loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> batch                              <span class="token comment"># batch&#x304B;&#x3089;&#x30C7;&#x30FC;&#x30BF;&#x3068;&#x30BF;&#x30FC;&#x30B2;&#x30C3;&#x30C8;&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3059;</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span> <span class="token comment"># &#x30C7;&#x30D0;&#x30A4;&#x30B9;&#x3078;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x8EE2;&#x9001;</span>
+        optimizer<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>                             <span class="token comment"># &#x52FE;&#x914D;&#x306E;&#x60C5;&#x5831;&#x3092;&#x30BC;&#x30ED;&#x306B;&#x30EA;&#x30BB;&#x30C3;&#x30C8;</span>
+        pred <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>                                <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306B;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x5165;&#x308C;&#x308B;</span>
+        loss <span class="token operator">=</span> criterion<span class="token punctuation">(</span>pred<span class="token punctuation">,</span> target<span class="token punctuation">)</span>                    <span class="token comment"># &#x640D;&#x5931;&#x3092;&#x8A08;&#x7B97;</span>
+        loss<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>                                   <span class="token comment"># &#x52FE;&#x914D;&#x3092;&#x8A08;&#x7B97;</span>
+        optimizer<span class="token punctuation">.</span>step<span class="token punctuation">(</span><span class="token punctuation">)</span>                                  <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x66F4;&#x65B0;</span>
+        train_loss <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>                         <span class="token comment"># &#x640D;&#x5931;&#x3092;&#x8A18;&#x9332;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Epoch </span><span class="token interpolation"><span class="token punctuation">{</span>epoch<span class="token punctuation">}</span></span><span class="token string">: Train loss </span><span class="token interpolation"><span class="token punctuation">{</span>train_loss <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>train_loader<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">&quot;</span></span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="test&#x95A2;&#x6570;"><code>test</code>&#x95A2;&#x6570;</h3>
+<p><code>test</code>&#x95A2;&#x6570;&#x3067;&#x306F;&#x5B66;&#x7FD2;&#x3057;&#x305F;&#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x306E;&#x8A55;&#x4FA1;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;<code>train</code>&#x95A2;&#x6570;&#x3068;&#x3084;&#x3063;&#x3066;&#x3044;&#x308B;&#x4E8B;&#x306F;&#x307B;&#x307C;&#x5909;&#x308F;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;&#x3061;&#x304C;&#x3046;&#x306E;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x90E8;&#x5206;&#x3067;&#x3059;&#x3002;&#x307E;&#x305A;&#x3001;&#x8A55;&#x4FA1;&#x3067;&#x306F;&#x5B66;&#x7FD2;&#x3092;&#x884C;&#x308F;&#x306A;&#x3044;&#x305F;&#x3081;<code>optimizer</code>&#x3092;&#x7528;&#x3044;&#x307E;&#x305B;&#x3093;&#x3002;&#x8A55;&#x4FA1;&#x4E2D;&#x306F;&#x3001;<code>model.eavl()</code>&#x3067;&#x8A55;&#x4FA1;&#x3082;&#x30E2;&#x30FC;&#x30C9;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;&#x307E;&#x305F;&#x3001;<code>with torch.no_grad():</code>&#x3067;&#x8A55;&#x4FA1;&#x306E;&#x9593;&#x3067;&#x52FE;&#x914D;&#x306E;&#x60C5;&#x5831;&#x3092;&#x7528;&#x3044;&#x306A;&#x3044;&#x4E8B;&#x3092;&#x5BA3;&#x8A00;&#x3057;&#x307E;&#x3059;&#x3002;&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3059;&#x308B;&#x3068;&#x3001;&#x6D88;&#x8CBB;&#x30E1;&#x30E2;&#x30EA;&#x91CF;&#x3084;&#x8A08;&#x7B97;&#x91CF;&#x3092;&#x524A;&#x6E1B;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;<code>correct += pred.argmax(dim=1).eq(target).sum().item()</code>&#x3067;&#x4E88;&#x6E2C;&#x7D50;&#x679C;&#x3068;&#x6B63;&#x89E3;&#x30C7;&#x30FC;&#x30BF;&#x306E;&#x6570;&#x5B57;&#x304C;&#x4E00;&#x81F4;&#x3057;&#x3066;&#x3044;&#x308B;&#x304B;&#x3092;&#x8A18;&#x9332;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">def</span> <span class="token function">test</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_loader<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;
+    &#x8A55;&#x4FA1;&#x7528;&#x306E;&#x95A2;&#x6570;
+    &#x8A55;&#x4FA1;&#x7528;&#x306E;&#x95A2;&#x6570;&#x3067;&#x306F;&#x3001;&#x5B66;&#x7FD2;&#x3068;&#x9055;&#x3044;&#x3001;optimizer&#x304C;&#x4E0D;&#x8981;
+    &quot;&quot;&quot;</span>
+    model<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment"># &#x30CD;&#x30C3;&#x30C8;&#x30EF;&#x30FC;&#x30AF;&#x3092;&#x8A55;&#x4FA1;&#x30E2;&#x30FC;&#x30C9;&#x306B;</span>
+    test_loss <span class="token operator">=</span> <span class="token number">0</span>
+    correct <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> batch <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span>test_loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">with</span> torch<span class="token punctuation">.</span>no_grad<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            data<span class="token punctuation">,</span> target <span class="token operator">=</span> batch
+            data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+            pred <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+            loss <span class="token operator">=</span> criterion<span class="token punctuation">(</span>pred<span class="token punctuation">,</span> target<span class="token punctuation">)</span>
+            test_loss <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            correct <span class="token operator">+=</span> pred<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>eq<span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment"># &#x6B63;&#x89E3;&#x7387;&#x3092;&#x8A08;&#x7B97;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Epoch </span><span class="token interpolation"><span class="token punctuation">{</span>epoch<span class="token punctuation">}</span></span><span class="token string">: Test loss </span><span class="token interpolation"><span class="token punctuation">{</span>test_loss <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_loader<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">, Accuracy </span><span class="token interpolation"><span class="token punctuation">{</span><span class="token number">100</span><span class="token punctuation">.</span> <span class="token operator">*</span> correct <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_loader<span class="token punctuation">.</span>dataset<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string"> %&quot;</span></span><span class="token punctuation">)</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="autograd.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Tensorの自動微分">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"ニューラルネットワークの書き方","level":"1.5.3","depth":2,"previous":{"title":"Tensorの自動微分","level":"1.5.2","depth":2,"path":"pytorch/autograd.md","ref":"pytorch/autograd.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","prism","web-header"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"<a href='http://www.convergence-lab.com'>Convergence Lab.</a> Entering PyTorch"},"prism":{},"web-header":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"木村 優志 Convegence Lab.","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Entering PyTorch","gitbook":"*"},"file":{"path":"pytorch/nn.md","mtime":"2019-11-01T00:45:42.703Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-01T00:46:17.251Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-web-header/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

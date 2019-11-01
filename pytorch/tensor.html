@@ -1,0 +1,441 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Tensor · Entering PyTorch</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="木村 優志 Convegence Lab.">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-web-header/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="autograd.html" />
+    
+    
+    <link rel="prev" href="pytorch.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entering PyTorch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../machine_learning.html">
+            
+                <a href="../machine_learning.html">
+            
+                    
+                    機械学習
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../about_deeplearning.html">
+            
+                <a href="../about_deeplearning.html">
+            
+                    
+                    ディープラーニング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../settings.html">
+            
+                <a href="../settings.html">
+            
+                    
+                    環境設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="pytorch.html">
+            
+                <a href="pytorch.html">
+            
+                    
+                    PyTorch
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.5.1" data-path="tensor.html">
+            
+                <a href="tensor.html">
+            
+                    
+                    Tensor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="autograd.html">
+            
+                <a href="autograd.html">
+            
+                    
+                    Tensorの自動微分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="nn.html">
+            
+                <a href="nn.html">
+            
+                    
+                    ニューラルネットワークの書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Tensor</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="tensor&#x306E;&#x64CD;&#x4F5C;">Tensor&#x306E;&#x64CD;&#x4F5C;</h2>
+<p>&#x307E;&#x305A;&#x3001;&#x5FC5;&#x8981;&#x306A;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x3092;import&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">import</span> torch
+<span class="token keyword">from</span> torch <span class="token keyword">import</span> nn
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional <span class="token keyword">as</span> F
+</code></pre>
+<p>PyTorch&#x306E;&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x306F; Tensor&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x3092;&#x64CD;&#x4F5C;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x3088;&#x3063;&#x3066;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;&#x57FA;&#x672C;&#x7684;&#x306A;&#x64CD;&#x4F5C;&#x3092;&#x308A;&#x304B;&#x3044;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;&#x306F; ipython&#x304C;&#x4FBF;&#x5229;&#x3067;&#x3059;&#x3002;&#x4ECA;&#x56DE;&#x306F; ipython&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<pre class="language-"><code class="lang-python">$ ipython
+In <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">import</span> torch
+
+In <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;Tensor&#x3092;&#x4F5C;&#x6210;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;&#x6B21;&#x306F;&#x3001;Tensor&#x3069;&#x3046;&#x3057;&#x3092;&#x8DB3;&#x3057;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">=</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">:</span> b <span class="token operator">=</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">+</span> b
+Out<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x540C;&#x69D8;&#x306B;&#x3001;&#x69D8;&#x3005;&#x306A;&#x6F14;&#x7B97;&#x304C;&#x53EF;&#x80FD;&#x3067;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">-</span> b
+Out<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">*</span> b
+Out<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token number">4</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">/</span> b
+Out<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.2500</span><span class="token punctuation">,</span> <span class="token number">0.4000</span><span class="token punctuation">,</span> <span class="token number">0.5000</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">**</span> <span class="token number">2</span>
+Out<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x6F14;&#x7B97;&#x306F;&#x8981;&#x7D20;&#x3054;&#x3068;&#x306B;&#x884C;&#x308F;&#x308C;&#x3066;&#x3044;&#x308B;&#x306E;&#x304C;&#x308F;&#x304B;&#x308B;&#x3068;&#x601D;&#x3044;&#x307E;&#x3059;&#x3002;&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x306E;&#x5F62;&#x304C;&#x9055;&#x3046;&#x3068;&#x3046;&#x307E;&#x304F;&#x6F14;&#x7B97;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">:</span> c <span class="token operator">=</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a <span class="token operator">+</span> c
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>
+RuntimeError                              Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>ipython<span class="token operator">-</span><span class="token builtin">input</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span>e81e582b6fa9<span class="token operator">&gt;</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token number">1</span> a <span class="token operator">+</span> c
+
+RuntimeError<span class="token punctuation">:</span> The size of tensor a <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> must match the size of tensor b <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> at non<span class="token operator">-</span>singleton dimension <span class="token number">0</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3001;&#x30C6;&#x30F3;&#x30BD;&#x30EB;&#x306E;&#x5F62;&#x306E;&#x3053;&#x3068;&#x3092; shape&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;shape&#x306F; .shape &#x3068;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x78BA;&#x8A8D;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a<span class="token punctuation">.</span>shape
+Out<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">:</span> b<span class="token punctuation">.</span>shape
+Out<span class="token punctuation">[</span><span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span><span class="token punctuation">:</span> c<span class="token punctuation">.</span>shape
+Out<span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x8981;&#x7D20;&#x756A;&#x53F7;&#x3092;&#x6307;&#x5B9A;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x8981;&#x7D20;&#x306B;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">:</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+Out<span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">]</span><span class="token punctuation">:</span> b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+Out<span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x30B9;&#x30E9;&#x30A4;&#x30B9;&#x3092;&#x4F7F;&#x3046;&#x4E8B;&#x3082;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">22</span><span class="token punctuation">]</span><span class="token punctuation">:</span> c<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+Out<span class="token punctuation">[</span><span class="token number">22</span><span class="token punctuation">]</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xFF12;&#x6B21;&#x5143;&#x4EE5;&#x4E0A;&#x306E;Tensor&#x3082;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;&#x3053;&#x3053;&#x3067;&#x306F;&#x3001;.empty()&#x3092;&#x3064;&#x304B;&#x3063;&#x3066;&#x3001;&#x521D;&#x671F;&#x5316;&#x3055;&#x308C;&#x3066;&#x3044;&#x306A;&#x3044;&#xFF14;&#x6B21;&#x5143;&#x306E;Tensor&#x3092;&#x4F5C;&#x3063;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;&#x5F15;&#x6570;&#x306B;&#x306F; shape&#x3092;&#x6307;&#x5B9A;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">7.5205e+28</span><span class="token punctuation">,</span> <span class="token number">7.1758e+22</span><span class="token punctuation">,</span> <span class="token number">1.4603e-19</span><span class="token punctuation">,</span> <span class="token number">1.8888e+31</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token punctuation">[</span><span class="token number">1.6216e-19</span><span class="token punctuation">,</span> <span class="token number">1.1022e+24</span><span class="token punctuation">,</span> <span class="token number">5.9437e-02</span><span class="token punctuation">,</span> <span class="token number">7.0374e+22</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token punctuation">[</span><span class="token number">1.8037e+28</span><span class="token punctuation">,</span> <span class="token number">1.7917e+25</span><span class="token punctuation">,</span> <span class="token number">1.7751e+28</span><span class="token punctuation">,</span> <span class="token number">5.6752e-02</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+         <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">9.1041e-12</span><span class="token punctuation">,</span> <span class="token number">6.2609e+22</span><span class="token punctuation">,</span> <span class="token number">4.7428e+30</span><span class="token punctuation">,</span> <span class="token number">4.5918e-40</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token punctuation">[</span><span class="token number">1.7753e+28</span><span class="token punctuation">,</span> <span class="token number">1.7093e+25</span><span class="token punctuation">,</span> <span class="token number">3.0346e+32</span><span class="token punctuation">,</span> <span class="token number">2.8940e+12</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token punctuation">[</span><span class="token number">7.5338e+28</span><span class="token punctuation">,</span> <span class="token number">7.1758e+22</span><span class="token punctuation">,</span> <span class="token number">1.4603e-19</span><span class="token punctuation">,</span> <span class="token number">1.8888e+31</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x521D;&#x671F;&#x5316;&#x3055;&#x308C;&#x305F;Tensor&#x3092;shape&#x3092;&#x6307;&#x5B9A;&#x3057;&#x3066;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x3044;&#x5834;&#x5408;&#x306B;&#x306F;&#x3001;zeros()&#x3084;ones()&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-python">In <span class="token punctuation">[</span><span class="token number">24</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">24</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+In <span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">]</span><span class="token punctuation">:</span> torch<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+        <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+        <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>GPU&#x3067;&#x8A08;&#x7B97;&#x3057;&#x305F;&#x3044;&#x5834;&#x5408;&#x306F;&#x3001;Tensor&#x3092;CUDA&#x30C7;&#x30D0;&#x30A4;&#x30B9;&#x306B;&#x8EE2;&#x9001;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>(TBA)</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="pytorch.html" class="navigation navigation-prev " aria-label="Previous page: PyTorch">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="autograd.html" class="navigation navigation-next " aria-label="Next page: Tensorの自動微分">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Tensor","level":"1.5.1","depth":2,"next":{"title":"Tensorの自動微分","level":"1.5.2","depth":2,"path":"pytorch/autograd.md","ref":"pytorch/autograd.md","articles":[]},"previous":{"title":"PyTorch","level":"1.5","depth":1,"path":"pytorch/pytorch.md","ref":"pytorch/pytorch.md","articles":[{"title":"Tensor","level":"1.5.1","depth":2,"path":"pytorch/tensor.md","ref":"pytorch/tensor.md","articles":[]},{"title":"Tensorの自動微分","level":"1.5.2","depth":2,"path":"pytorch/autograd.md","ref":"pytorch/autograd.md","articles":[]},{"title":"ニューラルネットワークの書き方","level":"1.5.3","depth":2,"path":"pytorch/nn.md","ref":"pytorch/nn.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["katex","prism","web-header"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"<a href='http://www.convergence-lab.com'>Convergence Lab.</a> Entering PyTorch"},"prism":{},"web-header":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"木村 優志 Convegence Lab.","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Entering PyTorch","gitbook":"*"},"file":{"path":"pytorch/tensor.md","mtime":"2019-10-31T23:56:45.203Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-01T00:46:17.251Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-web-header/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
