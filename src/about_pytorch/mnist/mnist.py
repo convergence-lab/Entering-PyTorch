@@ -63,12 +63,13 @@ def test(model, device, test_loader, criterion, epoch):
     test_loss = 0
     correct = 0
     for batch in tqdm(test_loader):
-        data, target = batch
-        data, target = data.to(device), target.to(device)
-        pred = model(data)
-        loss = criterion(pred, target)
-        test_loss += loss.item()
-        correct += pred.argmax(dim=1).eq(target).sum().item()    # 正解率を計算
+        with torch.no_grad():
+            data, target = batch
+            data, target = data.to(device), target.to(device)
+            pred = model(data)
+            loss = criterion(pred, target)
+            test_loss += loss.item()
+            correct += pred.argmax(dim=1).eq(target).sum().item()    # 正解率を計算
     print(f"Epoch {epoch}: Test loss {test_loss / len(test_loader)}, Accuracy {100. * correct / len(test_loader.dataset)} %")
 
 def main():

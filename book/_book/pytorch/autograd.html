@@ -1,0 +1,440 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Tensorの自動微分 · Entering PyTorch</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="木村 優志 Convegence Lab.">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-web-header/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="nn.html" />
+    
+    
+    <link rel="prev" href="tensor.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entering PyTorch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../machine_learning.html">
+            
+                <a href="../machine_learning.html">
+            
+                    
+                    機械学習
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../about_deeplearning.html">
+            
+                <a href="../about_deeplearning.html">
+            
+                    
+                    ディープラーニング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../settings.html">
+            
+                <a href="../settings.html">
+            
+                    
+                    環境設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="pytorch.html">
+            
+                <a href="pytorch.html">
+            
+                    
+                    PyTorch
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="tensor.html">
+            
+                <a href="tensor.html">
+            
+                    
+                    Tensor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.2" data-path="autograd.html">
+            
+                <a href="autograd.html">
+            
+                    
+                    Tensorの自動微分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="nn.html">
+            
+                <a href="nn.html">
+            
+                    
+                    ニューラルネットワークの書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Tensorの自動微分</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="&#x3000;tensor&#x306E;&#x81EA;&#x52D5;&#x5FAE;&#x5206;">&#x3000;Tensor&#x306E;&#x81EA;&#x52D5;&#x5FAE;&#x5206;</h2>
+<p>PyTorch&#x306A;&#x3069;&#x306E;&#x30C7;&#x30A3;&#x30FC;&#x30D7;&#x30E9;&#x30FC;&#x30CB;&#x30F3;&#x30B0;&#x30E9;&#x30A4;&#x30D6;&#x30E9;&#x30EA;&#x306E;&#x7279;&#x5FB4;&#x306F;&#x3001;&#x81EA;&#x52D5;&#x5FAE;&#x5206;&#x3092;&#x5099;&#x3048;&#x3066;&#x3044;&#x308B;&#x4E8B;&#x3067;&#x3059;&#x3002;&#x81EA;&#x52D5;&#x5FAE;&#x5206;&#x3092;&#x884C;&#x3046;Tensor&#x3092;&#x3064;&#x304F;&#x308B;&#x305F;&#x3081;&#x306B;&#x306F;&#x3001;Tensor&#x306E;&#x521D;&#x671F;&#x5316;&#x6642;&#x306B; <code>requires_grad=True</code> &#x3092;&#x6307;&#x5B9A;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code>In [1]: import torch
+
+In [2]: torch.ones(2, 2, requires_grad=True)
+Out[2]: 
+tensor([[1., 1.],
+        [1., 1.]], requires_grad=True)
+</code></pre><p>&#x5B9F;&#x969B;&#x306B;&#x3001;<code>((x+1)**2).sum()</code>&#x306E;&#x5FAE;&#x5206;&#x3092;&#x8A08;&#x7B97;&#x3057;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;&#x307E;&#x305A;&#x3001; <code>y</code>&#x306B; <code>((x+1)**2).sum()</code>&#x3092;&#x4EE3;&#x5165;&#x3057;&#x307E;&#x3059;&#x3002;PyTorch&#x306E;&#x81EA;&#x52D5;&#x5FAE;&#x5206;&#x3067;&#x306F;&#x3001;&#x4E00;&#x5EA6; <code>sum()</code>&#x3084;<code>.mean()</code>&#x3092;&#x3068;&#x3063;&#x3066;&#x30B9;&#x30AB;&#x30E9;&#x30FC;&#x5024;&#x306B;&#x3057;&#x306A;&#x3044;&#x3068;&#x81EA;&#x52D5;&#x5FAE;&#x5206;&#x3092;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<pre class="language-"><code>In [3]: x = torch.ones(2, 2, requires_grad=True)
+
+In [4]: y = ((x+1)**2).sum()
+
+In [5]: y
+Out[5]: 
+tensor([[4., 4.],
+        [4., 4.]], grad_fn=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PowBackward0</span><span class="token punctuation">&gt;</span></span>)
+</code></pre><p><code>y</code>&#x3092;&#x8868;&#x793A;&#x3059;&#x308B;&#x3068;&#x3001;<code>grad_fn=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PowBackward0</span><span class="token punctuation">&gt;</span></span></code>&#x306E;&#x3088;&#x3046;&#x306B;&#x52FE;&#x914D;&#x3092;&#x8A08;&#x7B97;&#x3059;&#x308B;&#x95A2;&#x6570;&#x304C;&#x66F8;&#x304B;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x5177;&#x4F53;&#x7684;&#x306B;&#x3069;&#x306E;&#x95A2;&#x6570;&#x3067;&#x5FAE;&#x5206;&#x3092;&#x8A08;&#x7B97;&#x3059;&#x308B;&#x306E;&#x304B;&#x306F;&#x5229;&#x7528;&#x8005;&#x306F;&#x3042;&#x307E;&#x308A;&#x6C17;&#x306B;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;&#x5FAE;&#x5206;&#x3092;&#x8A08;&#x7B97;&#x3059;&#x308B;&#x306B;&#x306F; <code>y.backward()</code>&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;&#x3059;&#x308B;&#x3068;&#x3001;<code>x.grad</code>&#x306B;&#x52FE;&#x914D;&#x304C;&#x8A18;&#x9332;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code>In [16]: y.backward()
+
+In [17]: x.grad
+Out[17]: 
+tensor([[5., 5.],
+        [5., 5.]])
+</code></pre><p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x51FA;&#x529B;&#x3055;&#x308C;&#x307E;&#x3057;&#x305F;&#x3002; &#x624B;&#x8A08;&#x7B97;&#x3068;&#x7167;&#x5408;&#x3057;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable><mtr><mtd><mrow><mrow><mi mathvariant="bold">y</mi></mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mo>&#x2211;</mo><mo>(</mo><mrow><mi mathvariant="bold">x</mi></mrow><mo>+</mo><mn>1</mn><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow><mfrac><mrow><mi mathvariant="normal">&#x2202;</mi><mi>y</mi></mrow><mrow><mi mathvariant="normal">&#x2202;</mi><msub><mi>x</mi><mrow><mn>0</mn><mn>0</mn></mrow></msub></mrow></mfrac></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>x</mi><mrow><mn>0</mn><mn>0</mn></mrow></msub></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mn>1</mn><mtext><mi mathvariant="normal">&#x3088;</mi><mi mathvariant="normal">&#x308A;</mi></mtext></mrow></mtd></mtr><mtr><mtd><mrow><mfrac><mrow><mi mathvariant="normal">&#x2202;</mi><mi>y</mi></mrow><mrow><mi mathvariant="normal">&#x2202;</mi><msub><mi>x</mi><mrow><mn>0</mn><mn>0</mn></mrow></msub></mrow></mfrac></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mn>5</mn></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">
+\begin{aligned}
+\mathbf{y} &amp;= \sum (\mathbf {x}+1)^2\\
+\frac{\partial y}{\partial x_{00}} &amp;= 2x + 1\\
+x_{00} &amp;= 1 \text{&#x3088;&#x308A;}\\
+\frac{\partial y}{\partial x_{00}} &amp;= 5\\
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:4.457445em;"></span><span class="strut bottom" style="height:8.41489em;vertical-align:-3.9574450000000008em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist"><span style="top:-3.407445em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"><span class="mord mathbf" style="margin-right:0.01597em;">y</span></span></span></span><span style="top:-1.4859949999999997em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm" style="margin-right:0.05556em;">&#x2202;</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span><span class="mord mathrm mtight">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathrm" style="margin-right:0.05556em;">&#x2202;</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span><span style="top:0.19000500000000048em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span><span class="mord mathrm mtight">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span><span style="top:1.9214450000000005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm" style="margin-right:0.05556em;">&#x2202;</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span><span class="mord mathrm mtight">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathrm" style="margin-right:0.05556em;">&#x2202;</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span><span style="top:3.597445000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="col-align-l"><span class="vlist"><span style="top:-3.407445em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mrel">=</span><span class="mop op-symbol large-op" style="top:-0.000004999999999977245em;">&#x2211;</span><span class="mopen">(</span><span class="mord displaystyle textstyle uncramped"><span class="mord mathbf">x</span></span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span><span style="top:-1.4859949999999997em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mrel">=</span><span class="mord mathrm">2</span><span class="mord mathit">x</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span><span style="top:0.19000500000000048em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord text displaystyle textstyle uncramped"><span class="mord mathrm cjk_fallback">&#x3088;&#x308A;</span></span></span></span><span style="top:1.9214450000000005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mrel">=</span><span class="mord mathrm">5</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span></span></span></p>
+<p>&#x6B63;&#x3057;&#x304F;&#x8A08;&#x7B97;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x4ED6;&#x306F;&#x540C;&#x69D8;&#x3067;&#x3059;&#x304B;&#x3089;&#x7701;&#x7565;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>PyTorch&#x3067;&#x306F;&#x3001;&#x7528;&#x610F;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x69D8;&#x3005;&#x306A;&#x95A2;&#x6570;&#x306E;&#x5FAE;&#x5206;&#x3092;&#x8A08;&#x7B97;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;&#x6B21;&#x306E;<code>l</code>&#x306E;&#x3088;&#x3046;&#x306A;&#x8907;&#x96D1;&#x306A;&#x95A2;&#x6570;&#x306E;&#x5FAE;&#x5206;&#x3092;&#x6C42;&#x3081;&#x308B;&#x4E8B;&#x3082;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code>In [153]: W1 = torch.randn([3, 10], requires_grad=True)
+
+In [154]: W2 = torch.randn([10, 10], requires_grad=True)
+
+In [155]: W3 = torch.randn([10, 1], requires_grad=True)
+
+In [156]: x = torch.Tensor([1., -2., 3.])
+
+In [158]: y = F.celu(torch.matmul(W3.T, F.celu(torch.matmul(W2.T, F.celu(torch.matmul(W1.T, x))))))
+
+In [159]: t = torch.zeros([1])
+
+In [160]: l = torch.mean((y - t)**2)
+
+In [161]: l
+Out[161]: tensor(0.9990, grad_fn=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MeanBackward0</span><span class="token punctuation">&gt;</span></span>)
+
+In [162]: l.backward()
+
+In [163]: W1.grad
+Out[163]: 
+tensor([[ 0.0008,  0.0010, -0.0024, -0.0006,  0.0006, -0.0003,  0.0010, -0.0014,
+          0.0054, -0.0044],
+        [-0.0015, -0.0021,  0.0047,  0.0013, -0.0013,  0.0007, -0.0020,  0.0028,
+         -0.0109,  0.0089],
+        [ 0.0023,  0.0031, -0.0071, -0.0019,  0.0019, -0.0010,  0.0030, -0.0042,
+          0.0163, -0.0133]])
+
+In [164]: W2.grad
+Out[164]: 
+tensor([[-3.8166e-05,  6.0304e-04,  1.0604e-05, -4.4769e-06,  6.6196e-05,
+          4.3861e-04,  4.5371e-04, -3.2250e-04, -8.1333e-04, -9.1162e-04],
+        [ 8.3692e-05, -1.3224e-03, -2.3252e-05,  9.8171e-06, -1.4516e-04,
+         -9.6181e-04, -9.9492e-04,  7.0720e-04,  1.7835e-03,  1.9991e-03],
+        [ 7.9589e-05, -1.2575e-03, -2.2112e-05,  9.3358e-06, -1.3804e-04,
+         -9.1466e-04, -9.4615e-04,  6.7253e-04,  1.6961e-03,  1.9011e-03],
+        [-3.5049e-05,  5.5379e-04,  9.7376e-06, -4.1112e-06,  6.0790e-05,
+          4.0279e-04,  4.1665e-04, -2.9616e-04, -7.4690e-04, -8.3717e-04],
+        [ 1.1731e-04, -1.8536e-03, -3.2593e-05,  1.3761e-05, -2.0347e-04,
+         -1.3482e-03, -1.3946e-03,  9.9131e-04,  2.5000e-03,  2.8022e-03],
+        [-4.5904e-05,  7.2530e-04,  1.2753e-05, -5.3846e-06,  7.9618e-05,
+          5.2754e-04,  5.4570e-04, -3.8789e-04, -9.7823e-04, -1.0965e-03],
+        [ 8.8772e-05, -1.4026e-03, -2.4664e-05,  1.0413e-05, -1.5397e-04,
+         -1.0202e-03, -1.0553e-03,  7.5013e-04,  1.8918e-03,  2.1204e-03],
+        [ 5.1163e-05, -8.0839e-04, -1.4215e-05,  6.0014e-06, -8.8739e-05,
+         -5.8798e-04, -6.0822e-04,  4.3233e-04,  1.0903e-03,  1.2221e-03],
+        [ 1.8080e-04, -2.8568e-03, -5.0233e-05,  2.1209e-05, -3.1360e-04,
+         -2.0779e-03, -2.1494e-03,  1.5278e-03,  3.8530e-03,  4.3187e-03],
+        [ 1.5403e-04, -2.4338e-03, -4.2795e-05,  1.8068e-05, -2.6716e-04,
+         -1.7702e-03, -1.8311e-03,  1.3016e-03,  3.2825e-03,  3.6792e-03]])
+
+In [165]: W3.grad
+Out[165]: 
+tensor([[ 0.0010],
+        [-0.0019],
+        [ 0.0010],
+        [ 0.0010],
+        [ 0.0009],
+        [-0.0029],
+        [-0.0017],
+        [-0.0077],
+        [-0.0005],
+        [-0.0069]])
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="tensor.html" class="navigation navigation-prev " aria-label="Previous page: Tensor">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="nn.html" class="navigation navigation-next " aria-label="Next page: ニューラルネットワークの書き方">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Tensorの自動微分","level":"1.5.2","depth":2,"next":{"title":"ニューラルネットワークの書き方","level":"1.5.3","depth":2,"path":"pytorch/nn.md","ref":"pytorch/nn.md","articles":[]},"previous":{"title":"Tensor","level":"1.5.1","depth":2,"path":"pytorch/tensor.md","ref":"pytorch/tensor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","prism","web-header"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"<a href='http://www.convergence-lab.com'>Convergence Lab.</a> Entering PyTorch"},"prism":{},"web-header":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"木村 優志 Convegence Lab.","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Entering PyTorch","gitbook":"*"},"file":{"path":"pytorch/autograd.md","mtime":"2019-10-31T23:54:26.255Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-01T00:46:17.251Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-web-header/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
