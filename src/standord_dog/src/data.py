@@ -28,6 +28,7 @@ class StanfordDocDataset(Dataset):
     def __getitem__(self, index):
         item = self.records[index]
         img = Image.open(f"{self.image_path}/{item['img']}")
+        img = img.convert("RGB")
         img = img.resize((255, 255))
         img = np.asarray(img)
         img = np.transpose(img, (2, 0, 1)).astype("float32")
