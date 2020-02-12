@@ -13,9 +13,13 @@ class Net(nn.Module):
         self.base_net = nn.Sequential(  # base_netは特徴分析用のネットワーク
             nn.Conv2d(3, 20, 3, 1),     # Conv2Dレイヤ
             nn.ReLU(),                  # ReLU活性化関数
+            nn.BatchNorm2d(20),         # BatchNormレイヤ
+            nn.Dropout(0.5).            # Dropoutレイヤ
             nn.MaxPool2d(2),            # maxpoolingレイヤ
             nn.Conv2d(20, 20, 3, 1),    # Conv2Dレイヤ
-            nn.ReLU(),                   # ReLU活性化関数
+            nn.ReLU(),                  # ReLU活性化関数
+            nn.BatchNorm2d(20),         # BatchNormレイヤ
+            nn.Dropout(0.5).            # Dropoutレイヤ
             nn.MaxPool2d(2),            # maxpoolingレイヤ
         )
         self.classfier = nn.Sequential(  # classifierは分類用のネットワーク
@@ -76,7 +80,7 @@ def main():
     torch.manual_seed(0)  # シードを固定
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")  # CUDAが利用できるなrあ利用する
 
-    epoch = 5
+    epoch = 100
     batch_size = 100
     save_model = False
 
